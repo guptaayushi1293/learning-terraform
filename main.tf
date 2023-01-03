@@ -1,9 +1,15 @@
-data "aws_ami" "app_ami" {
+data "aws_ami" "example" {
   most_recent = true
+  executable_users = ["274055544780"]
 
   filter {
     name   = "name"
-    values = ["bitnami-tomcat-*-x86_64-hvm-ebs-nami"]
+    values = ["myami-*"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
   }
 
   filter {
@@ -15,7 +21,7 @@ data "aws_ami" "app_ami" {
 }
 
 resource "aws_instance" "web" {
-  ami           = data.aws_ami.app_ami.id
+  ami           = data.aws_ami.example.id
   instance_type = "t3.nano"
 
   tags = {
