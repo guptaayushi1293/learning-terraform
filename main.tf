@@ -12,7 +12,7 @@ data "aws_ami" "ubuntu" {
         values = ["hvm"]
     }
 
-    owners = ["amazon"] # GSG-playground
+    owners = ["274055544780"] # GSG-playground
 }
 
 resource "aws_instance" "web" {
