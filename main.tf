@@ -1,12 +1,11 @@
-data "aws_ami" "example" {
+data "aws_ami" "amazon-linux-2" {
     executable_users = ["self"]
     most_recent      = true
-    name_regex       = "^myami-\\d{3}"
-    owners           = ["self"]
+    owners           = ["amazon"]
 
     filter {
     name   = "name"
-    values = ["myami-*"]
+    values = ["amazn2-*"]
     }
 
     filter {
@@ -21,7 +20,7 @@ data "aws_ami" "example" {
 }
 
 resource "aws_instance" "web" {
-    ami           = data.aws_ami.example.id
+    ami           = data.aws_ami.amazon-linux-2.id
     instance_type = "t3.nano"
 
     tags = {
