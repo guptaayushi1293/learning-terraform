@@ -1,10 +1,10 @@
-data "aws_ami" "ubuntu" {
+data "aws_ami" "myami" {
     most_recent = true
     executable_users = ["274055544780"]
 
     filter {
         name   = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+        values = ["myami-*"]
     }
 
     filter {
@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-    ami           = data.aws_ami.ubuntu.id
+    ami           = data.aws_ami.myami.id
     instance_type = "t3.nano"
 
     tags = {
