@@ -1,4 +1,4 @@
-data "aws_ami" "example" {
+data "aws_ami" "myami" {
   most_recent = true
   executable_users = ["274055544780"]
 
