@@ -1,4 +1,4 @@
-data "aws_ami" "app_ami" {
+with data "aws_ami" "app_ami" {
   most_recent = true
 
   filter {
