@@ -1,21 +1,20 @@
-data "aws_ami" "amazon_linux" {
-    most_recent      = true
-    owners           = ["amazon"]
+data "aws_ami" "ubuntu" {
+    most_recent = true
 
     filter {
-    name   = "name"
-    values = ["amazn-ami-hvm-*-x86_64-gp2"]
+        name   = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
     }
 
     filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+        name = "virtualization-type"
+        values = ["hvm"]
     }
 }
 
 resource "aws_instance" "web" {
-    ami           = data.aws_ami.amazon_linux.id
-    instance_type = "t3.nano"
+    ami           = data.aws_ami.ubuntu.id
+    instance_type = "t3.micro"
 
     tags = {
         Name = "HelloWorld"
