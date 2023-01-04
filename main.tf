@@ -1,16 +1,10 @@
-data "aws_ami" "amazon-linux-2" {
-    executable_users = ["self"]
+data "aws_ami" "amazon_linux" {
     most_recent      = true
-    owners           = ["self"]
+    owners           = ["amazon"]
 
     filter {
     name   = "name"
-    values = ["amazn2-*"]
-    }
-
-    filter {
-    name   = "root-device-type"
-    values = ["ebs"]
+    values = ["amazn-ami-hvm-*-x86_64-gp2"]
     }
 
     filter {
@@ -20,7 +14,7 @@ data "aws_ami" "amazon-linux-2" {
 }
 
 resource "aws_instance" "web" {
-    ami           = data.aws_ami.amazon-linux-2.id
+    ami           = data.aws_ami.amazon_linux.id
     instance_type = "t3.nano"
 
     tags = {
