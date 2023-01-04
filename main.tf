@@ -1,7 +1,7 @@
 data "aws_ami" "amazon-linux-2" {
     executable_users = ["self"]
     most_recent      = true
-    owners           = ["amazon"]
+    owners           = ["self"]
 
     filter {
     name   = "name"
