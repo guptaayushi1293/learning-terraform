@@ -1,9 +1,10 @@
-data "aws_ami" "ubuntu" {
+// create aws instance using image spec
+data "aws_ami" "amazon-linux-2" {
     most_recent = true
 
     filter {
         name   = "name"
-        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+        values = ["amzn2-ami-kernel-5.10-hvm-2.0.20221210.1-x86_64-gp2"]
     }
 
     filter {
@@ -13,7 +14,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web" {
-    ami           = data.aws_ami.ubuntu.id
+    ami           = data.aws_ami.amazon-linux-2.id
     instance_type = "t3.micro"
 
     tags = {
