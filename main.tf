@@ -13,7 +13,7 @@ data "aws_ami" "amazon-linux-2" {
     }
 }
 
-module "blog_vpc" {
+module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "dev"
@@ -50,7 +50,7 @@ module "blog_sg" {
   version = "4.16.2"
   name    = "blog_new"
 
-  vpc_id  = module.blog_vpc.public_subnets[0]
+  vpc_id  = module.vpc.public_subnets[0]
   
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
@@ -103,8 +103,8 @@ module "blog_alb" {
 
   load_balancer_type = "application"
 
-  vpc_id             = module.blog_vpc.vpc_id
-  subnets            = module.blog_vpc.public_subnets
+  vpc_id             = module.vpc.vpc_id
+  subnets            = module.vpc.public_subnets
   security_groups    = [module.blog_sg.security_group_id]
 
   target_groups = [
@@ -138,7 +138,7 @@ module "autoscaling" {
   min_size = 1
   max_size = 2
 
-  vpc_zone_identifier = module.blog_vpc.public_subnets
+  vpc_zone_identifier = module.vpc.public_subnets
   target_group_arns   = module.blog_alb.target_group_arns
   security_groups     = [module.blog_sg.security_group_id]
 
